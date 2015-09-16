@@ -6,7 +6,7 @@ import _ from 'lodash';
  * @property {String} videoId
  * @property {String|Number} width
  * @property {String|Number} height
- * @property {String} state ('play', 'pause', 'stop')
+ * @property {String} state ('play', 'pause')
  */
 class YouTubePlayer extends React.Component {
     static stateNames = {

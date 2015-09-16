@@ -4,5 +4,10 @@
 [![NPM version](http://img.shields.io/npm/v/react-youtube-player.svg?style=flat)](https://www.npmjs.org/package/react-youtube-player)
 
 ```js
-
+/**
+ * @property {String} videoId
+ * @property {String|Number} width
+ * @property {String|Number} height
+ * @property {String} state ('play', 'pause')
+ */
 ```

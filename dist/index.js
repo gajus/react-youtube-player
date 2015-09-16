@@ -30,7 +30,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
  * @property {String} videoId
  * @property {String|Number} width
  * @property {String|Number} height
- * @property {String} state ('play', 'pause', 'stop')
+ * @property {String} state ('play', 'pause')
  */
 
 var YouTubePlayer = (function (_React$Component) {
