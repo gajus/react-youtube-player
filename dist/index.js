@@ -1,5 +1,9 @@
 'use strict';
 
+var _lodashLangIsString2 = require('lodash/lang/isString');
+
+var _lodashLangIsString3 = _interopRequireDefault(_lodashLangIsString2);
+
 Object.defineProperty(exports, '__esModule', {
     value: true
 });
@@ -7,8 +11,6 @@ Object.defineProperty(exports, '__esModule', {
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
@@ -21,6 +23,8 @@ var _react2 = _interopRequireDefault(_react);
 var _youtubePlayer = require('youtube-player');
 
 var _youtubePlayer2 = _interopRequireDefault(_youtubePlayer);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 /**
  * @property {String} videoId
@@ -39,16 +43,36 @@ var YouTubePlayer = (function (_React$Component) {
 
         _get(Object.getPrototypeOf(YouTubePlayer.prototype), 'constructor', this).apply(this, arguments);
 
+        this.setRealPlaybackState = function (stateName) {
+            _this.realPlaybackState = stateName;
+        };
+
+        this.getRealPlaybackState = function () {
+            return _this.realPlaybackState;
+        };
+
         this.bindEvent = function () {
             _this.player.on('stateChange', function (event) {
-                if (event.data === 0) {
-                    _this.props.onEnd();
-                } else if (event.data === 1) {
-                    _this.props.onPlay();
-                } else if (event.data === 2) {
-                    _this.props.onPause();
-                } else if (event.data === 3) {
-                    _this.props.onBuffer();
+                _this.setRealPlaybackState(YouTubePlayer.stateNames[event.data]);
+
+                // console.log('event', event.data, this.realPlaybackState);
+
+                switch (_this.getRealPlaybackState()) {
+                    case 'ended':
+                        _this.props.onEnd();
+                        break;
+
+                    case 'playing':
+                        _this.props.onPlay();
+                        break;
+
+                    case 'paused':
+                        _this.props.onPause();
+                        break;
+
+                    case 'buffering':
+                        _this.props.onBuffer();
+                        break;
                 }
             });
 
@@ -58,40 +82,46 @@ var YouTubePlayer = (function (_React$Component) {
         };
 
         this.diffState = function (prevProps, nextProps) {
-            console.log(prevProps, nextProps);
+            // console.log('prevProps', prevProps, 'nextProps', nextProps);
 
-            if (prevProps.state !== nextProps.state) {
+            if (_this.realPlaybackState !== nextProps.state && nextProps.state) {
                 _this.setPlaybackState(nextProps.state);
             }
 
-            if (prevProps.videoId !== nextProps.videoId) {
-                _this.setVideoId(nextProps.videoId);
+            if (prevProps.videoId !== nextProps.videoId && nextProps.videoId) {
+                _this.cueVideoId(nextProps.videoId);
             }
 
-            if (prevProps.width !== nextProps.width || _this.props.height !== nextProps.height) {
-                _this.setStyle(nextProps.width, nextProps.height);
+            if (prevProps.width !== nextProps.width) {
+                _this.setViewportWidth(nextProps.width);
+            }
+
+            if (prevProps.height !== nextProps.height) {
+                _this.setViewportHeight(nextProps.height);
             }
         };
 
-        this.setPlaybackState = function (state) {
-            if (state === 'play') {
+        this.setPlaybackState = function (stateName) {
+            if (stateName === 'play') {
                 _this.player.playVideo();
-            } else if (state === 'pause') {
+            } else if (stateName === 'pause') {
                 _this.player.pauseVideo();
-            } else if (state === 'stop') {
-                _this.player.stopVideo();
             } else {
-                throw new Error('Unknown playback state (' + state + ').');
+                throw new Error('Invalid playback state ("' + stateName + '").');
             }
         };
 
-        this.setVideoId = function (videoId) {
+        this.cueVideoId = function (videoId) {
+            // console.log('videoId', videoId);
+
+            if (!(0, _lodashLangIsString3['default'])(videoId)) {
+                throw new Error('videoId parameter must be a string.');
+            }
+
             _this.player.cueVideoById(videoId);
         };
 
-        this.setStyle = function (width, height) {
-            // console.log('this.refs.player', this.refs.player, 'width', width, 'height', height);
-
+        this.setViewportWidth = function (width) {
             if (!width) {
                 _this.refs.player.style.removeProperty('width');
             } else {
@@ -103,8 +133,10 @@ var YouTubePlayer = (function (_React$Component) {
 
                 _this.refs.viewport.style.width = width;
             }
+        };
 
-            if (!_this.props.height) {
+        this.setViewportHeight = function (height) {
+            if (!height) {
                 _this.refs.player.style.removeProperty('height');
             } else {
                 if (typeof height === 'number') {
@@ -137,18 +169,24 @@ var YouTubePlayer = (function (_React$Component) {
         value: function shouldComponentUpdate() {
             // console.log('shouldComponentUpdate', 'this.props', this.props);
 
-            // @todo Logic to detect whether style properties (width, height) have changed.
-
-            // this.setStyle(this.props.width, this.props.height);
-
             return false;
         }
 
         /**
+         * State set using 'state' property can change, e.g.
+         * 'playing' will change to 'ended' at the end of the video.
+         * Read playback state reflects the current player state
+         * and is used to compare against the video player properties.
          *
+         * @param {String} stateName
+         * @return {undefined}
          */
     }, {
         key: 'render',
+
+        /**
+         * @return {ReactElement}
+         */
         value: function render() {
             var style = undefined;
 
@@ -165,6 +203,17 @@ var YouTubePlayer = (function (_React$Component) {
             );
         }
     }], [{
+        key: 'stateNames',
+        value: {
+            '-1': 'unstarted',
+            0: 'ended',
+            1: 'playing',
+            2: 'paused',
+            3: 'buffering',
+            5: 'cued'
+        },
+        enumerable: true
+    }, {
         key: 'propTypes',
         value: {
             // https://developers.google.com/youtube/iframe_api_reference#onReady
@@ -197,7 +246,7 @@ var YouTubePlayer = (function (_React$Component) {
         value: {
             width: '100%',
             height: '100%',
-            state: 'stop',
+            state: undefined,
             onEnd: function onEnd() {},
             onPlay: function onPlay() {},
             onPause: function onPause() {},
@@ -214,24 +263,48 @@ exports['default'] = YouTubePlayer;
 module.exports = exports['default'];
 
 /**
+ * @return {String}
+ */
+
+/**
+ * Used to map YouTube IFrame Player API events to the callbacks
+ * defined using the component instance properties.
+ *
+ * @return {undefined}
+ */
+
+/**
+ * The complexity of the ReactYoutubePlayer is that it attempts to combine
+ * stateless properties with stateful player. This function is comparing
+ * the last known property value of a state with the last known state of the player.
+ * When these are different, it initiates an action that changes the player state, e.g.
+ * when the current "state" property is "play" and the last known player state is "pause",
+ * then setPlaybackState method will be called.
+ *
  * @param {Object} prevProps
  * @param {Object} nextProps
  */
 
 /**
- * @param {String} state ('play', 'pause', 'stop')
+ * @param {String} state
  * @return {undefined}
  */
 
 /**
- * @param {String} videoId
+ *@param {String} videoId
  * @return {undefined}
  */
 
 /**
- * Update element styles without calling the render method.
+ * Update element's width without calling the render method.
  *
  * @param {String|Number} width
+ * @return {undefined}
+ */
+
+/**
+ * Update element's height without calling the render method.
+ *
  * @param {String|Number} height
  * @return {undefined}
  */
