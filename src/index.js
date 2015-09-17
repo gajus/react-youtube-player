@@ -1,14 +1,22 @@
 import React from 'react';
-import YouTubePlayerFactory from 'youtube-player';
+import YoutubePlayer from 'youtube-player';
 import _ from 'lodash';
+import isNumeric from 'is-numeric';
+
+/**
+ * @typedef {String} YoutubePlayer~playbackState
+ * @value 'unstarted' Stops and cancels loading of the current video. [stopVideo]{@link https://developers.google.com/youtube/iframe_api_reference#stopVideo}
+ * @value 'playing' Plays the currently cued/loaded video. [playVideo]{@link https://developers.google.com/youtube/iframe_api_reference#playVideo}
+ * @value 'paused' Pauses the currently playing video. [pauseVideo]{@link https://developers.google.com/youtube/iframe_api_reference#pauseVideo}
+ */
 
 /**
  * @property {String} videoId
- * @property {String|Number} width
- * @property {String|Number} height
- * @property {String} state ('play', 'pause')
+ * @property {String|Number} width (default: '100%').
+ * @property {String|Number} height (default: '100%').
+ * @property {YoutubePlayer~playbackState} playbackState
  */
-class YouTubePlayer extends React.Component {
+class ReactYoutubePlayer extends React.Component {
     static stateNames = {
         '-1': 'unstarted',
         0: 'ended',
@@ -47,7 +55,7 @@ class YouTubePlayer extends React.Component {
     static defaultProps = {
         width: '100%',
         height: '100%',
-        state: undefined,
+        playbackState: 'unstarted',
         onEnd: () => {},
         onPlay: () => {},
         onPause: () => {},
@@ -56,7 +64,7 @@ class YouTubePlayer extends React.Component {
     };
 
     componentDidMount () {
-        this.player = YouTubePlayerFactory(this.refs.player);
+        this.player = YoutubePlayer(this.refs.player);
 
         this.bindEvent();
 
@@ -101,7 +109,7 @@ class YouTubePlayer extends React.Component {
      */
     bindEvent = () => {
         this.player.on('stateChange', (event) => {
-            this.setRealPlaybackState(YouTubePlayer.stateNames[event.data]);
+            this.setRealPlaybackState(ReactYoutubePlayer.stateNames[event.data]);
 
             // console.log('event', event.data, this.realPlaybackState);
 
@@ -141,15 +149,17 @@ class YouTubePlayer extends React.Component {
      * @param {Object} nextProps
      */
     diffState = (prevProps, nextProps) => {
-        // console.log('prevProps', prevProps, 'nextProps', nextProps);
+        console.log('prevProps', prevProps, 'nextProps', nextProps);
 
-        if (this.realPlaybackState !== nextProps.state && nextProps.state) {
-            this.setPlaybackState(nextProps.state);
+        if (this.realPlaybackState !== nextProps.playbackState && nextProps.playbackState) {
+            this.setPlaybackState(nextProps.playbackState);
         }
 
         if (prevProps.videoId !== nextProps.videoId && nextProps.videoId) {
             this.cueVideoId(nextProps.videoId);
         }
+
+        console.log('prevProps.width !== nextProps.width', prevProps.width !== nextProps.width);
 
         if (prevProps.width !== nextProps.width) {
             this.setViewportWidth(nextProps.width);
@@ -165,10 +175,12 @@ class YouTubePlayer extends React.Component {
      * @return {undefined}
      */
     setPlaybackState = (stateName) => {
-        if (stateName === 'play') {
+        if (stateName === 'playing') {
             this.player.playVideo();
-        } else if (stateName === 'pause') {
+        } else if (stateName === 'paused') {
             this.player.pauseVideo();
+        } else if (stateName === 'unstarted') {
+
         } else {
             throw new Error('Invalid playback state ("' + stateName + '").');
         }
@@ -198,11 +210,11 @@ class YouTubePlayer extends React.Component {
         if (!width) {
             this.refs.player.style.removeProperty('width');
         } else {
-            if (typeof width === 'number') {
+            if (isNumeric(width)) {
                 width += 'px';
             }
 
-            // console.log('set width', width);
+            console.log('set width', width);
 
             this.refs.viewport.style.width = width;
         }
@@ -218,7 +230,7 @@ class YouTubePlayer extends React.Component {
         if (!height) {
             this.refs.player.style.removeProperty('height');
         } else {
-            if (typeof height === 'number') {
+            if (isNumeric(height)) {
                 height += 'px';
             }
 
@@ -246,4 +258,4 @@ class YouTubePlayer extends React.Component {
     }
 }
 
-export default YouTubePlayer;
+export default ReactYoutubePlayer;
