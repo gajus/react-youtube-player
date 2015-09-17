@@ -34,3 +34,5 @@ import YoutubePlayer from 'react-youtube-player';
     playbackState='unstarted'
 />
 ```
+
+[`./example/`](./example/) demonstrates how to control a `react-youtube-player` component using property values that are controlled using user input.
