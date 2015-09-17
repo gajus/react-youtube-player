@@ -44,8 +44,14 @@ class Parent extends React.Component {
         });
     }
 
+    handleStopVideo = () => {
+        this.setState({
+            playbackState: 'unstarted'
+        });
+    }
+
     render () {
-        console.log(`this.state.playbackState`, this.state.playbackState);
+        // console.log(`this.state.playbackState`, this.state.playbackState);
 
         return <div>
             <YouTubePlayer
@@ -72,6 +78,7 @@ class Parent extends React.Component {
 
             <button onClick={this.handlePlayVideo}>Play</button>
             <button onClick={this.handlePauseVideo}>Pause</button>
+            <button onClick={this.handleStopVideo}>Stop</button>
         </div>;
     }
 }

@@ -109,31 +109,25 @@ class ReactYoutubePlayer extends React.Component {
      */
     bindEvent = () => {
         this.player.on('stateChange', (event) => {
+            let realPlaybackState;
+
             this.setRealPlaybackState(ReactYoutubePlayer.stateNames[event.data]);
 
-            // console.log('event', event.data, this.realPlaybackState);
+            realPlaybackState = this.getRealPlaybackState();
 
-            switch (this.getRealPlaybackState()) {
-                case 'ended':
-                    this.props.onEnd();
-                break;
-
-                case 'playing':
-                    this.props.onPlay();
-                break;
-
-                case 'paused':
-                    this.props.onPause();
-                break;
-
-                case 'buffering':
-                    this.props.onBuffer();
-                break;
+            if (realPlaybackState === 'ended') {
+                this.props.onEnd(event);
+            } else if (realPlaybackState === 'playing') {
+                this.props.onPlay(event);
+            } else if (realPlaybackState === 'paused') {
+                this.props.onPause(event);
+            } else if (realPlaybackState === 'buffering') {
+                this.props.onBuffer(event);
             }
         });
 
         this.player.on('error', (event) => {
-            this.props.onError();
+            this.props.onError(event);
         });
     };
 
@@ -147,9 +141,10 @@ class ReactYoutubePlayer extends React.Component {
      *
      * @param {Object} prevProps
      * @param {Object} nextProps
+     * @return {undefined}
      */
     diffState = (prevProps, nextProps) => {
-        console.log('prevProps', prevProps, 'nextProps', nextProps);
+        // console.log('prevProps', prevProps, 'nextProps', nextProps);
 
         if (this.realPlaybackState !== nextProps.playbackState && nextProps.playbackState) {
             this.setPlaybackState(nextProps.playbackState);
@@ -159,7 +154,7 @@ class ReactYoutubePlayer extends React.Component {
             this.cueVideoId(nextProps.videoId);
         }
 
-        console.log('prevProps.width !== nextProps.width', prevProps.width !== nextProps.width);
+        // console.log('prevProps.width !== nextProps.width', prevProps.width !== nextProps.width);
 
         if (prevProps.width !== nextProps.width) {
             this.setViewportWidth(nextProps.width);
@@ -171,7 +166,7 @@ class ReactYoutubePlayer extends React.Component {
     };
 
     /**
-     * @param {String} state
+     * @param {String} stateName
      * @return {undefined}
      */
     setPlaybackState = (stateName) => {
@@ -180,7 +175,7 @@ class ReactYoutubePlayer extends React.Component {
         } else if (stateName === 'paused') {
             this.player.pauseVideo();
         } else if (stateName === 'unstarted') {
-
+            this.player.stopVideo();
         } else {
             throw new Error('Invalid playback state ("' + stateName + '").');
         }
@@ -207,17 +202,7 @@ class ReactYoutubePlayer extends React.Component {
      * @return {undefined}
      */
     setViewportWidth = (width) => {
-        if (!width) {
-            this.refs.player.style.removeProperty('width');
-        } else {
-            if (isNumeric(width)) {
-                width += 'px';
-            }
-
-            console.log('set width', width);
-
-            this.refs.viewport.style.width = width;
-        }
+        this.setDimension('width', width);
     };
 
     /**
@@ -227,16 +212,27 @@ class ReactYoutubePlayer extends React.Component {
      * @return {undefined}
      */
     setViewportHeight = (height) => {
-        if (!height) {
-            this.refs.player.style.removeProperty('height');
+        this.setDimension('height', height);
+    };
+
+    /**
+     * @param {String} name
+     * @param {String|Number} size
+     * @return {undefined}
+     */
+    setDimension = (name, size) => {
+        let formattedSize;
+
+        if (!size) {
+            this.refs.player.style.removeProperty(name);
         } else {
-            if (isNumeric(height)) {
-                height += 'px';
+            formattedSize = size;
+
+            if (isNumeric(formattedSize)) {
+                formattedSize += 'px';
             }
 
-            // console.log('set height', height);
-
-            this.refs.viewport.style.height = height;
+            this.refs.viewport.style[name] = formattedSize;
         }
     };
 

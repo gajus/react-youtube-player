@@ -25,6 +25,7 @@
     "react-dom": "^0.14.0-rc1"
   },
   "dependencies": {
+    "is-numeric": "0.0.3",
     "lodash": "^3.10.1",
     "youtube-player": "^2.0.0"
   },
@@ -43,10 +44,10 @@
     "react-addons-test-utils": "^0.14.0-beta3"
   },
   "scripts": {
-    "lint": "./node_modules/.bin/eslint ./src/ ./test/",
+    "lint": "node ./node_modules/.bin/eslint ./src/ ./test/",
     "quick-test": "npm run lint && node ./node_modules/.bin/babel-istanbul cover ./node_modules/.bin/_mocha",
-    "test": "npm run quick-test && cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
-    "build": "babel ./src/ --out-dir ./dist/",
-    "watch": "babel --watch ./src/ --out-dir ./dist/"
+    "test": "npm run quick-test && cat ./coverage/lcov.info | node ./node_modules/.bin/coveralls",
+    "build": "node ./node_modules/.bin/babel ./src/ --out-dir ./dist/",
+    "watch": "node ./node_modules/.bin/babel --watch ./src/ --out-dir ./dist/"
   }
 }
