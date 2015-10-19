@@ -1,6 +1,6 @@
 {
   "name": "react-youtube-player",
-  "description": "",
+  "description": "React component that encapsulates YouTube IFrame Player API and exposes player controls using the component properties.",
   "main": "./dist/index.js",
   "repository": {
     "type": "git",
@@ -25,19 +25,15 @@
     "react-dom": "^0.14.0"
   },
   "dependencies": {
-    "is-numeric": "0.0.5",
+    "is-numeric": "^0.0.5",
     "lodash": "^3.10.1",
     "youtube-player": "^2.0.0"
   },
   "devDependencies": {
-    "babel": "^5.8.21",
-    "babel-eslint": "^4.1.0",
-    "babel-istanbul": "^0.3.19",
-    "babel-plugin-lodash": "^0.2.0",
-    "chai": "^3.2.0",
+    "chai": "^3.3.0",
     "jsdom": "^7.0.1",
-    "pragmatist": "^1.0.2",
-    "react-addons-test-utils": "^0.14.0-beta3"
+    "pragmatist": "^1.1.2",
+    "react-addons-test-utils": "^0.14.0"
   },
   "scripts": {
     "test": "node ./node_modules/.bin/pragmatist test",
