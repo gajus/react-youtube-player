@@ -67,9 +67,7 @@ class ReactYoutubePlayer extends React.Component {
 
     componentDidMount () {
         this.player = YoutubePlayer(this.refs.player, {
-            playerVars: {
-                ... this.props.playerVars
-            }
+            playerVars: this.props.playerVars
         });
 
         this.bindEvent();
