@@ -40,6 +40,7 @@ var _isNumeric2 = _interopRequireDefault(_isNumeric);
  * @property {string|number} width (default: '100%').
  * @property {string|number} height (default: '100%').
  * @property {YoutubePlayer~playbackState} playbackState
+ * @property {Object} configuration Configuration parameters to be passed to the YouTube Player (known as `playerVars` in the YouTube Player API for iframe Embeds, https://developers.google.com/youtube/player_parameters?playerVersion=HTML5#Parameters).
  */
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -159,7 +160,7 @@ var ReactYoutubePlayer = (function (_React$Component) {
         key: 'componentDidMount',
         value: function componentDidMount() {
             this.player = (0, _youtubePlayer2['default'])(this.refs.player, {
-                playerVars: this.props.playerVars
+                playerVars: this.props.parameters
             });
 
             this.bindEvent();
@@ -248,7 +249,29 @@ var ReactYoutubePlayer = (function (_React$Component) {
             onPause: _react2['default'].PropTypes.func,
             onPlay: _react2['default'].PropTypes.func,
 
-            playerVars: _react2['default'].PropTypes.object
+            configuration: _react2['default'].PropTypes.shape({
+                autoplay: _react2['default'].PropTypes.oneOf([0, 1]),
+                cc_load_policy: _react2['default'].PropTypes.oneOf([0, 1]),
+                color: _react2['default'].PropTypes.oneOf(['red', 'white']),
+                controls: _react2['default'].PropTypes.oneOf([0, 1, 2]),
+                disablekb: _react2['default'].PropTypes.oneOf([0, 1]),
+                enablejsapi: _react2['default'].PropTypes.oneOf([0, 1]),
+                end: _react2['default'].PropTypes.number,
+                fs: _react2['default'].PropTypes.oneOf([0, 1]),
+                hl: _react2['default'].PropTypes.string,
+                iv_load_policy: _react2['default'].PropTypes.oneOf([1, 3]),
+                list: _react2['default'].PropTypes.oneOf(['search', 'user_uploads', 'playlist']),
+                listType: _react2['default'].PropTypes.oneOf(['playlist', 'search', 'user_uploads']),
+                loop: _react2['default'].PropTypes.oneOf([0, 1]),
+                modestbranding: _react2['default'].PropTypes.oneOf([0, 1]),
+                origin: _react2['default'].PropTypes.string,
+                playlist: _react2['default'].PropTypes.string,
+                playsinline: _react2['default'].PropTypes.oneOf([0, 1]),
+                rel: _react2['default'].PropTypes.oneOf([0, 1]),
+                showinfo: _react2['default'].PropTypes.oneOf([0, 1]),
+                start: _react2['default'].PropTypes.number,
+                theme: _react2['default'].PropTypes.oneOf(['dark', 'light'])
+            })
         },
         enumerable: true
     }, {
@@ -257,7 +280,7 @@ var ReactYoutubePlayer = (function (_React$Component) {
             width: '100%',
             height: '100%',
             playbackState: 'unstarted',
-            playerVars: {},
+            parameters: {},
             onEnd: function onEnd() {},
             onPlay: function onPlay() {},
             onPause: function onPause() {},

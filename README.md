@@ -18,23 +18,28 @@ React component that encapsulates [YouTube IFrame Player API](https://developers
 import YoutubePlayer from 'react-youtube-player';
 
 /**
- * @typedef {String} YoutubePlayer~playbackState
+ * @typedef {string} YoutubePlayer~playbackState
  * @value 'unstarted' Stops and cancels loading of the current video. [stopVideo]{@link https://developers.google.com/youtube/iframe_api_reference#stopVideo}
  * @value 'playing' Plays the currently cued/loaded video. [playVideo]{@link https://developers.google.com/youtube/iframe_api_reference#playVideo}
  * @value 'paused' Pauses the currently playing video. [pauseVideo]{@link https://developers.google.com/youtube/iframe_api_reference#pauseVideo}
  */
 
 /**
- * @property {String} videoId
- * @property {String|Number} width (default: '100%').
- * @property {String|Number} height (default: '100%').
+ * @property {string} videoId
+ * @property {string|number} width (default: '100%').
+ * @property {string|number} height (default: '100%').
  * @property {YoutubePlayer~playbackState} playbackState
- * @property {object} playerVars Parameters to be passed to player (https://developers.google.com/youtube/iframe_api_reference)
+ * @property {Object} configuration Configuration parameters to be passed to the YouTube Player (known as `playerVars` in the YouTube Player API for iframe Embeds, https://developers.google.com/youtube/player_parameters?playerVersion=HTML5#Parameters).
  */
 <YoutubePlayer
     videoId=''
     playbackState='unstarted'
-    playerVars={{showinfo: 0, controls: 0}}
+    configuration={
+        {
+            showinfo: 0,
+            controls: 0
+        }
+    }
 />
 ```
 

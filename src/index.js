@@ -15,6 +15,7 @@ import isNumeric from 'is-numeric';
  * @property {string|number} width (default: '100%').
  * @property {string|number} height (default: '100%').
  * @property {YoutubePlayer~playbackState} playbackState
+ * @property {Object} configuration Configuration parameters to be passed to the YouTube Player (known as `playerVars` in the YouTube Player API for iframe Embeds, https://developers.google.com/youtube/player_parameters?playerVersion=HTML5#Parameters).
  */
 class ReactYoutubePlayer extends React.Component {
     static stateNames = {
@@ -52,14 +53,36 @@ class ReactYoutubePlayer extends React.Component {
         onPause: React.PropTypes.func,
         onPlay: React.PropTypes.func,
 
-        playerVars: React.PropTypes.object
+        configuration: React.PropTypes.shape({
+            autoplay: React.PropTypes.oneOf([0, 1]),
+            cc_load_policy: React.PropTypes.oneOf([0, 1]),
+            color: React.PropTypes.oneOf(['red', 'white']),
+            controls: React.PropTypes.oneOf([0, 1, 2]),
+            disablekb: React.PropTypes.oneOf([0, 1]),
+            enablejsapi: React.PropTypes.oneOf([0, 1]),
+            end: React.PropTypes.number,
+            fs: React.PropTypes.oneOf([0, 1]),
+            hl: React.PropTypes.string,
+            iv_load_policy: React.PropTypes.oneOf([1, 3]),
+            list: React.PropTypes.oneOf(['search', 'user_uploads', 'playlist']),
+            listType: React.PropTypes.oneOf(['playlist', 'search', 'user_uploads']),
+            loop: React.PropTypes.oneOf([0, 1]),
+            modestbranding: React.PropTypes.oneOf([0, 1]),
+            origin: React.PropTypes.string,
+            playlist: React.PropTypes.string,
+            playsinline: React.PropTypes.oneOf([0, 1]),
+            rel: React.PropTypes.oneOf([0, 1]),
+            showinfo: React.PropTypes.oneOf([0, 1]),
+            start: React.PropTypes.number,
+            theme: React.PropTypes.oneOf(['dark', 'light'])
+        })
     };
 
     static defaultProps = {
         width: '100%',
         height: '100%',
         playbackState: 'unstarted',
-        playerVars: {},
+        parameters: {},
         onEnd: () => {},
         onPlay: () => {},
         onPause: () => {},
@@ -69,7 +92,7 @@ class ReactYoutubePlayer extends React.Component {
 
     componentDidMount () {
         this.player = YoutubePlayer(this.refs.player, {
-            playerVars: this.props.playerVars
+            playerVars: this.props.parameters
         });
 
         this.bindEvent();
