@@ -47,15 +47,17 @@ class ReactYoutubePlayer extends React.Component {
         onPlay: React.PropTypes.func,
         onPause: React.PropTypes.func,
         onBuffer: React.PropTypes.func,
-
         // https://developers.google.com/youtube/iframe_api_reference#onError
-        onError: React.PropTypes.func
+        onError: React.PropTypes.func,
+
+        playerVars: React.PropTypes.object
     };
 
     static defaultProps = {
         width: '100%',
         height: '100%',
         playbackState: 'unstarted',
+        playerVars: {},
         onEnd: () => {},
         onPlay: () => {},
         onPause: () => {},
@@ -64,7 +66,9 @@ class ReactYoutubePlayer extends React.Component {
     };
 
     componentDidMount () {
-        this.player = YoutubePlayer(this.refs.player);
+        this.player = YoutubePlayer(this.refs.player, {
+            playerVars: this.props.playerVars
+        });
 
         this.bindEvent();
 

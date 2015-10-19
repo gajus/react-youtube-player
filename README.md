@@ -29,10 +29,12 @@ import YoutubePlayer from 'react-youtube-player';
  * @property {String|Number} width (default: '100%').
  * @property {String|Number} height (default: '100%').
  * @property {YoutubePlayer~playbackState} playbackState
+ * @property {object} playerVars Parameters to be passed to player (https://developers.google.com/youtube/iframe_api_reference)
  */
 <YoutubePlayer
     videoId=''
     playbackState='unstarted'
+    playerVars={{showinfo: 0, controls: 0}}
 />
 ```
 
