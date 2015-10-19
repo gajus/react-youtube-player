@@ -4,16 +4,16 @@ import _ from 'lodash';
 import isNumeric from 'is-numeric';
 
 /**
- * @typedef {String} YoutubePlayer~playbackState
+ * @typedef {string} YoutubePlayer~playbackState
  * @value 'unstarted' Stops and cancels loading of the current video. [stopVideo]{@link https://developers.google.com/youtube/iframe_api_reference#stopVideo}
  * @value 'playing' Plays the currently cued/loaded video. [playVideo]{@link https://developers.google.com/youtube/iframe_api_reference#playVideo}
  * @value 'paused' Pauses the currently playing video. [pauseVideo]{@link https://developers.google.com/youtube/iframe_api_reference#pauseVideo}
  */
 
 /**
- * @property {String} videoId
- * @property {String|Number} width (default: '100%').
- * @property {String|Number} height (default: '100%').
+ * @property {string} videoId
+ * @property {string|number} width (default: '100%').
+ * @property {string|number} height (default: '100%').
  * @property {YoutubePlayer~playbackState} playbackState
  */
 class ReactYoutubePlayer extends React.Component {
@@ -42,13 +42,15 @@ class ReactYoutubePlayer extends React.Component {
         // https://developers.google.com/youtube/iframe_api_reference#onApiChange
         // onApiChange: React.PropTypes.func,
 
+        onBuffer: React.PropTypes.func,
+
         // https://developers.google.com/youtube/iframe_api_reference#onStateChange
         onEnd: React.PropTypes.func,
-        onPlay: React.PropTypes.func,
-        onPause: React.PropTypes.func,
-        onBuffer: React.PropTypes.func,
         // https://developers.google.com/youtube/iframe_api_reference#onError
         onError: React.PropTypes.func,
+
+        onPause: React.PropTypes.func,
+        onPlay: React.PropTypes.func,
 
         playerVars: React.PropTypes.object
     };
@@ -91,15 +93,15 @@ class ReactYoutubePlayer extends React.Component {
      * Read playback state reflects the current player state
      * and is used to compare against the video player properties.
      *
-     * @param {String} stateName
-     * @return {undefined}
+     * @param {string} stateName
+     * @returns {undefined}
      */
     setRealPlaybackState = (stateName) => {
         this.realPlaybackState = stateName;
     };
 
     /**
-     * @return {String}
+     * @returns {string}
      */
     getRealPlaybackState = () => {
         return this.realPlaybackState;
@@ -109,7 +111,7 @@ class ReactYoutubePlayer extends React.Component {
      * Used to map YouTube IFrame Player API events to the callbacks
      * defined using the component instance properties.
      *
-     * @return {undefined}
+     * @returns {undefined}
      */
     bindEvent = () => {
         this.player.on('stateChange', (event) => {
@@ -145,7 +147,7 @@ class ReactYoutubePlayer extends React.Component {
      *
      * @param {Object} prevProps
      * @param {Object} nextProps
-     * @return {undefined}
+     * @returns {undefined}
      */
     diffState = (prevProps, nextProps) => {
         // console.log('prevProps', prevProps, 'nextProps', nextProps);
@@ -170,8 +172,8 @@ class ReactYoutubePlayer extends React.Component {
     };
 
     /**
-     * @param {String} stateName
-     * @return {undefined}
+     * @param {string} stateName
+     * @returns {undefined}
      */
     setPlaybackState = (stateName) => {
         if (stateName === 'playing') {
@@ -186,8 +188,8 @@ class ReactYoutubePlayer extends React.Component {
     };
 
     /**
-     *@param {String} videoId
-     * @return {undefined}
+     * @param {string} videoId
+     * @returns {undefined}
      */
     cueVideoId = (videoId) => {
         // console.log('videoId', videoId);
@@ -202,8 +204,8 @@ class ReactYoutubePlayer extends React.Component {
     /**
      * Update element's width without calling the render method.
      *
-     * @param {String|Number} width
-     * @return {undefined}
+     * @param {string|number} width
+     * @returns {undefined}
      */
     setViewportWidth = (width) => {
         this.setDimension('width', width);
@@ -212,17 +214,17 @@ class ReactYoutubePlayer extends React.Component {
     /**
      * Update element's height without calling the render method.
      *
-     * @param {String|Number} height
-     * @return {undefined}
+     * @param {string|number} height
+     * @returns {undefined}
      */
     setViewportHeight = (height) => {
         this.setDimension('height', height);
     };
 
     /**
-     * @param {String} name
-     * @param {String|Number} size
-     * @return {undefined}
+     * @param {string} name
+     * @param {string|number} size
+     * @returns {undefined}
      */
     setDimension = (name, size) => {
         let formattedSize;
@@ -241,7 +243,7 @@ class ReactYoutubePlayer extends React.Component {
     };
 
     /**
-     * @return {ReactElement}
+     * @returns {ReactElement}
      */
     render () {
         let style;

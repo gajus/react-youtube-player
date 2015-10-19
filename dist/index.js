@@ -29,16 +29,16 @@ var _isNumeric = require('is-numeric');
 var _isNumeric2 = _interopRequireDefault(_isNumeric);
 
 /**
- * @typedef {String} YoutubePlayer~playbackState
+ * @typedef {string} YoutubePlayer~playbackState
  * @value 'unstarted' Stops and cancels loading of the current video. [stopVideo]{@link https://developers.google.com/youtube/iframe_api_reference#stopVideo}
  * @value 'playing' Plays the currently cued/loaded video. [playVideo]{@link https://developers.google.com/youtube/iframe_api_reference#playVideo}
  * @value 'paused' Pauses the currently playing video. [pauseVideo]{@link https://developers.google.com/youtube/iframe_api_reference#pauseVideo}
  */
 
 /**
- * @property {String} videoId
- * @property {String|Number} width (default: '100%').
- * @property {String|Number} height (default: '100%').
+ * @property {string} videoId
+ * @property {string|number} width (default: '100%').
+ * @property {string|number} height (default: '100%').
  * @property {YoutubePlayer~playbackState} playbackState
  */
 
@@ -158,7 +158,9 @@ var ReactYoutubePlayer = (function (_React$Component) {
     _createClass(ReactYoutubePlayer, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
-            this.player = (0, _youtubePlayer2['default'])(this.refs.player);
+            this.player = (0, _youtubePlayer2['default'])(this.refs.player, {
+                playerVars: this.props.playerVars
+            });
 
             this.bindEvent();
 
@@ -183,14 +185,14 @@ var ReactYoutubePlayer = (function (_React$Component) {
          * Read playback state reflects the current player state
          * and is used to compare against the video player properties.
          *
-         * @param {String} stateName
-         * @return {undefined}
+         * @param {string} stateName
+         * @returns {undefined}
          */
     }, {
         key: 'render',
 
         /**
-         * @return {ReactElement}
+         * @returns {ReactElement}
          */
         value: function render() {
             var style = undefined;
@@ -236,14 +238,17 @@ var ReactYoutubePlayer = (function (_React$Component) {
             // https://developers.google.com/youtube/iframe_api_reference#onApiChange
             // onApiChange: React.PropTypes.func,
 
-            // https://developers.google.com/youtube/iframe_api_reference#onStateChange
-            onEnd: _react2['default'].PropTypes.func,
-            onPlay: _react2['default'].PropTypes.func,
-            onPause: _react2['default'].PropTypes.func,
             onBuffer: _react2['default'].PropTypes.func,
 
+            // https://developers.google.com/youtube/iframe_api_reference#onStateChange
+            onEnd: _react2['default'].PropTypes.func,
             // https://developers.google.com/youtube/iframe_api_reference#onError
-            onError: _react2['default'].PropTypes.func
+            onError: _react2['default'].PropTypes.func,
+
+            onPause: _react2['default'].PropTypes.func,
+            onPlay: _react2['default'].PropTypes.func,
+
+            playerVars: _react2['default'].PropTypes.object
         },
         enumerable: true
     }, {
@@ -252,6 +257,7 @@ var ReactYoutubePlayer = (function (_React$Component) {
             width: '100%',
             height: '100%',
             playbackState: 'unstarted',
+            playerVars: {},
             onEnd: function onEnd() {},
             onPlay: function onPlay() {},
             onPause: function onPause() {},
@@ -268,14 +274,14 @@ exports['default'] = ReactYoutubePlayer;
 module.exports = exports['default'];
 
 /**
- * @return {String}
+ * @returns {string}
  */
 
 /**
  * Used to map YouTube IFrame Player API events to the callbacks
  * defined using the component instance properties.
  *
- * @return {undefined}
+ * @returns {undefined}
  */
 
 /**
@@ -288,35 +294,36 @@ module.exports = exports['default'];
  *
  * @param {Object} prevProps
  * @param {Object} nextProps
- * @return {undefined}
+ * @returns {undefined}
  */
 
 /**
- * @param {String} stateName
- * @return {undefined}
+ * @param {string} stateName
+ * @returns {undefined}
  */
 
 /**
- *@param {String} videoId
- * @return {undefined}
+ * @param {string} videoId
+ * @returns {undefined}
  */
 
 /**
  * Update element's width without calling the render method.
  *
- * @param {String|Number} width
- * @return {undefined}
+ * @param {string|number} width
+ * @returns {undefined}
  */
 
 /**
  * Update element's height without calling the render method.
  *
- * @param {String|Number} height
- * @return {undefined}
+ * @param {string|number} height
+ * @returns {undefined}
  */
 
 /**
- * @param {String} name
- * @param {String|Number} size
- * @return {undefined}
+ * @param {string} name
+ * @param {string|number} size
+ * @returns {undefined}
  */
+//# sourceMappingURL=index.js.map

@@ -21,11 +21,11 @@
   },
   "license": "BSD-3-Clause",
   "peerDepdendencies": {
-    "react": "^0.14.0-rc1",
-    "react-dom": "^0.14.0-rc1"
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0"
   },
   "dependencies": {
-    "is-numeric": "0.0.3",
+    "is-numeric": "0.0.5",
     "lodash": "^3.10.1",
     "youtube-player": "^2.0.0"
   },
@@ -35,19 +35,13 @@
     "babel-istanbul": "^0.3.19",
     "babel-plugin-lodash": "^0.2.0",
     "chai": "^3.2.0",
-    "coveralls": "^2.11.4",
-    "eslint": "^1.2.1",
-    "eslint-plugin-react": "^3.3.0",
-    "jsdom": "^6.2.0",
-    "mocha": "^2.2.5",
-    "mocha-lcov-reporter": "0.0.2",
+    "jsdom": "^7.0.1",
+    "pragmatist": "^1.0.2",
     "react-addons-test-utils": "^0.14.0-beta3"
   },
   "scripts": {
-    "lint": "node ./node_modules/.bin/eslint ./src/ ./test/",
-    "quick-test": "npm run lint && node ./node_modules/.bin/babel-istanbul cover ./node_modules/.bin/_mocha",
-    "test": "npm run quick-test && cat ./coverage/lcov.info | node ./node_modules/.bin/coveralls",
-    "build": "node ./node_modules/.bin/babel ./src/ --out-dir ./dist/",
-    "watch": "node ./node_modules/.bin/babel --watch ./src/ --out-dir ./dist/"
+    "test": "node ./node_modules/.bin/pragmatist test",
+    "build": "node ./node_modules/.bin/pragmatist build",
+    "watch": "node ./node_modules/.bin/pragmatist watch"
   }
 }
