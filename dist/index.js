@@ -160,7 +160,7 @@ var ReactYoutubePlayer = (function (_React$Component) {
         key: 'componentDidMount',
         value: function componentDidMount() {
             this.player = (0, _youtubePlayer2['default'])(this.refs.player, {
-                playerVars: this.props.parameters
+                playerVars: this.props.configuration
             });
 
             this.bindEvent();
@@ -280,7 +280,7 @@ var ReactYoutubePlayer = (function (_React$Component) {
             width: '100%',
             height: '100%',
             playbackState: 'unstarted',
-            parameters: {},
+            configuration: {},
             onEnd: function onEnd() {},
             onPlay: function onPlay() {},
             onPause: function onPause() {},
