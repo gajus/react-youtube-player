@@ -82,7 +82,7 @@ class ReactYoutubePlayer extends React.Component {
         width: '100%',
         height: '100%',
         playbackState: 'unstarted',
-        parameters: {},
+        configuration: {},
         onEnd: () => {},
         onPlay: () => {},
         onPause: () => {},
@@ -92,7 +92,7 @@ class ReactYoutubePlayer extends React.Component {
 
     componentDidMount () {
         this.player = YoutubePlayer(this.refs.player, {
-            playerVars: this.props.parameters
+            playerVars: this.props.configuration
         });
 
         this.bindEvent();
