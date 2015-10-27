@@ -53,6 +53,7 @@ class ReactYoutubePlayer extends React.Component {
         onPause: React.PropTypes.func,
         onPlay: React.PropTypes.func,
 
+        /* eslint-disable camelcase, id-match */
         configuration: React.PropTypes.shape({
             autoplay: React.PropTypes.oneOf([0, 1]),
             cc_load_policy: React.PropTypes.oneOf([0, 1]),
@@ -76,6 +77,7 @@ class ReactYoutubePlayer extends React.Component {
             start: React.PropTypes.number,
             theme: React.PropTypes.oneOf(['dark', 'light'])
         })
+        /* eslint-enable camelcase, id-match */
     };
 
     static defaultProps = {
