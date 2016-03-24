@@ -26,7 +26,6 @@
   },
   "dependencies": {
     "is-numeric": "^0.0.5",
-    "lodash": "^3.10.1",
     "youtube-player": "^2.0.0"
   },
   "devDependencies": {
