@@ -1,6 +1,5 @@
 import React from 'react';
 import YoutubePlayer from 'youtube-player';
-import _ from 'lodash';
 import isNumeric from 'is-numeric';
 
 /**
@@ -219,7 +218,7 @@ class ReactYoutubePlayer extends React.Component {
     cueVideoId = (videoId) => {
         // console.log('videoId', videoId);
 
-        if (!_.isString(videoId)) {
+        if (typeof videoId !== 'string') {
             throw new Error('videoId parameter must be a string.');
         }
 
