@@ -3,7 +3,7 @@ import {
 } from '@kadira/storybook';
 
 const loadStories = () => {
-    require('./../dist/stories/player.js');
+    require('./../src/stories/player.js');
 };
 
 configure(loadStories, module);
