@@ -26,14 +26,14 @@
   },
   "dependencies": {
     "is-numeric": "^0.0.5",
-    "lodash": "^3.10.1",
-    "youtube-player": "^2.0.0"
+    "lodash": "^4.7.0",
+    "youtube-player": "^3.0.4"
   },
   "devDependencies": {
-    "chai": "^3.4.0",
-    "jsdom": "^7.0.2",
-    "react-addons-test-utils": "^0.14.0"
+    "chai": "^3.5.0",
+    "jsdom": "^8.2.0",
     "pragmatist": "^3.0.21",
+    "react-addons-test-utils": "^0.14.8"
   },
   "scripts": {
     "pragmatist": "pragmatist",
