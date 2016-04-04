@@ -43,4 +43,12 @@ import YoutubePlayer from 'react-youtube-player';
 />
 ```
 
-[`./example/`](./example/) demonstrates how to control a `react-youtube-player` component using property values that are controlled using user input.
+## Demo
+
+To run the demo:
+
+```
+npm install
+npm run build
+npm run demo
+```

@@ -30,16 +30,21 @@
     "youtube-player": "^3.0.4"
   },
   "devDependencies": {
+    "@kadira/storybook": "^1.2.0",
     "chai": "^3.5.0",
-    "jsdom": "^8.2.0",
+    "jsdom": "^8.3.0",
     "pragmatist": "^3.0.21",
-    "react-addons-test-utils": "^0.14.8"
+    "react": "^0.14.8",
+    "react-addons-test-utils": "^0.14.8",
+    "react-dom": "^0.14.8"
   },
   "scripts": {
     "pragmatist": "pragmatist",
     "lint": "pragmatist lint",
     "test": "pragmatist --type-assertions test",
     "build": "pragmatist --es5 build",
-    "preversion": "npm run lint && npm run test && npm run build"
+    "watch-build": "pragmatist --es5 watch-build",
+    "preversion": "npm run lint && npm run test && npm run build",
+    "demo": "start-storybook -p 9001"
   }
 }
