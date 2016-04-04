@@ -28,31 +28,6 @@ class ReactYoutubePlayer extends React.Component {
     };
 
     static propTypes = {
-        // https://developers.google.com/youtube/iframe_api_reference#onReady
-        // onReady: React.PropTypes.func,
-
-        // https://developers.google.com/youtube/iframe_api_reference#onStateChange
-        // onStateChange: React.PropTypes.func,
-
-        // https://developers.google.com/youtube/iframe_api_reference#onPlaybackQualityChange
-        // onPlaybackQualityChange: React.PropTypes.func,
-
-        // https://developers.google.com/youtube/iframe_api_reference#onPlaybackRateChange
-        // onPlaybackRateChange: React.PropTypes.func,
-
-        // https://developers.google.com/youtube/iframe_api_reference#onApiChange
-        // onApiChange: React.PropTypes.func,
-
-        onBuffer: React.PropTypes.func,
-
-        // https://developers.google.com/youtube/iframe_api_reference#onStateChange
-        onEnd: React.PropTypes.func,
-        // https://developers.google.com/youtube/iframe_api_reference#onError
-        onError: React.PropTypes.func,
-
-        onPause: React.PropTypes.func,
-        onPlay: React.PropTypes.func,
-
         /* eslint-disable camelcase, id-match */
         configuration: React.PropTypes.shape({
             autoplay: React.PropTypes.oneOf([0, 1]),
@@ -76,24 +51,49 @@ class ReactYoutubePlayer extends React.Component {
             showinfo: React.PropTypes.oneOf([0, 1]),
             start: React.PropTypes.number,
             theme: React.PropTypes.oneOf(['dark', 'light'])
-        })
+        }),
         /* eslint-enable camelcase, id-match */
+
+        // https://developers.google.com/youtube/iframe_api_reference#onReady
+        // onReady: React.PropTypes.func,
+
+        // https://developers.google.com/youtube/iframe_api_reference#onStateChange
+        // onStateChange: React.PropTypes.func,
+
+        // https://developers.google.com/youtube/iframe_api_reference#onPlaybackQualityChange
+        // onPlaybackQualityChange: React.PropTypes.func,
+
+        // https://developers.google.com/youtube/iframe_api_reference#onPlaybackRateChange
+        // onPlaybackRateChange: React.PropTypes.func,
+
+        // https://developers.google.com/youtube/iframe_api_reference#onApiChange
+        // onApiChange: React.PropTypes.func,
+
+        onBuffer: React.PropTypes.func,
+
+        // https://developers.google.com/youtube/iframe_api_reference#onStateChange
+        onEnd: React.PropTypes.func,
+        // https://developers.google.com/youtube/iframe_api_reference#onError
+        onError: React.PropTypes.func,
+
+        onPause: React.PropTypes.func,
+        onPlay: React.PropTypes.func
     };
 
     static defaultProps = {
-        width: '100%',
-        height: '100%',
-        playbackState: 'unstarted',
         configuration: {},
-        onEnd: () => {},
-        onPlay: () => {},
-        onPause: () => {},
+        height: '100%',
         onBuffer: () => {},
-        onError: () => {}
+        onEnd: () => {},
+        onError: () => {},
+        onPause: () => {},
+        onPlay: () => {},
+        playbackState: 'unstarted',
+        width: '100%'
     };
 
     componentDidMount () {
-        this.player = YoutubePlayer(this.refs.player, {
+        this.player = YoutubePlayer(this.refPlayer, {
             playerVars: this.props.configuration
         });
 
@@ -107,8 +107,6 @@ class ReactYoutubePlayer extends React.Component {
     }
 
     shouldComponentUpdate () {
-        // console.log('shouldComponentUpdate', 'this.props', this.props);
-
         return false;
     }
 
@@ -140,11 +138,9 @@ class ReactYoutubePlayer extends React.Component {
      */
     bindEvent = () => {
         this.player.on('stateChange', (event) => {
-            let realPlaybackState;
-
             this.setRealPlaybackState(ReactYoutubePlayer.stateNames[event.data]);
 
-            realPlaybackState = this.getRealPlaybackState();
+            const realPlaybackState = this.getRealPlaybackState();
 
             if (realPlaybackState === 'ended') {
                 this.props.onEnd(event);
@@ -254,33 +250,28 @@ class ReactYoutubePlayer extends React.Component {
     setDimension = (name, size) => {
         let formattedSize;
 
-        if (!size) {
-            this.refs.player.style.removeProperty(name);
-        } else {
+        if (size) {
             formattedSize = size;
 
             if (isNumeric(formattedSize)) {
                 formattedSize += 'px';
             }
 
-            this.refs.viewport.style[name] = formattedSize;
+            this.refViewport.style[name] = formattedSize;
+        } else {
+            this.refPlayer.style.removeProperty(name);
         }
     };
 
-    /**
-     * @returns {ReactElement}
-     */
     render () {
-        let style;
-
-        style = {
-            width: '100%',
+        const style = {
+            display: 'block',
             height: '100%',
-            display: 'block'
+            width: '100%'
         };
 
-        return <div ref='viewport' style={style}>
-            <div ref='player' style={style}></div>
+        return <div ref={(element) => { this.refViewport = element; }} style={style}>
+            <div ref={(element) => { this.refPlayer = element; }} style={style}></div>
         </div>;
     }
 }
