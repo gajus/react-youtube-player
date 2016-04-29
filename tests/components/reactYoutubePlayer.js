@@ -20,6 +20,11 @@ var expect = require('chai').expect;
 describe('Todo-item component', function(){
   
     beforeEach(function() {
+          const wrapper = shallow( <reactYoutubePlayer
+              videoId='M7lc1UVf-VE'
+              width='640'
+              height='360'
+              playbackState='unstarted'/>);
     });
 
 
@@ -42,6 +47,16 @@ describe('Todo-item component', function(){
               playbackState='unstarted'/>);
     expect(wrapper.props().videoId).to.equal('M7lc1UVf-VE');
     expect(wrapper.props().playbackState).to.equal('unstarted');
+  });
+
+    it('ReactVideoPlayer playing', () => {
+    const wrapper = shallow( <reactYoutubePlayer
+        videoId='M7lc1UVf-VE'
+        width='640'
+        height='360'
+        playbackState='playing'/>);
+    expect(wrapper.props().playbackState).to.equal('playing');
+    // expect(wrapper.props().playbackState).to.equal('unstarted');
   });
 
 
