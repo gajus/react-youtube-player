@@ -39,7 +39,7 @@ describe('Todo-item component', function(){
      //  console.log(box.props.playbackState)
   });
 
-    it('renders three <Foo /> components', () => {
+    it('General Tests', () => {
     const wrapper = shallow( <reactYoutubePlayer
               videoId='M7lc1UVf-VE'
               width='640'
