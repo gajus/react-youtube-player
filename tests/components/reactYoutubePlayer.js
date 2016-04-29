@@ -20,23 +20,18 @@ var expect = require('chai').expect;
 describe('Todo-item component', function(){
   
     beforeEach(function() {
-     this.renderedComponent = TestUtils.renderIntoDocument(
-        <reactYoutubePlayer
-              videoId='M7lc1UVf-VE'
-              width='640'
-              height='360'
-              playbackState='unstarted'/>
-      );
-
     });
-
-    // this.renderedDOM = () => React.findDOMNode(this.renderedComponent);
 
 
   it('reactYoutubePlayer should be isDOMComponent"', function() {
+       this.renderedComponent = TestUtils.renderIntoDocument(
+      <reactYoutubePlayer
+            videoId='M7lc1UVf-VE'
+            width='640'
+            height='360'
+            playbackState='unstarted'/>
+    );
     expect(TestUtils.isDOMComponent(this.renderedComponent)).to.equal(true)
-     // let box = TestUtils.findRenderedDOMComponentWithTag(this.renderedComponent, "div");
-     //  console.log(box.props.playbackState)
   });
 
     it('General Tests', () => {
@@ -46,6 +41,7 @@ describe('Todo-item component', function(){
               height='360'
               playbackState='unstarted'/>);
     expect(wrapper.props().videoId).to.equal('M7lc1UVf-VE');
+    expect(wrapper.props().playbackState).to.equal('unstarted');
   });
 
 
