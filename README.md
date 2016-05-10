@@ -2,6 +2,7 @@
 
 [![Travis build status](http://img.shields.io/travis/gajus/react-youtube-player/master.svg?style=flat-square)](https://travis-ci.org/gajus/react-youtube-player)
 [![NPM version](http://img.shields.io/npm/v/react-youtube-player.svg?style=flat-square)](https://www.npmjs.org/package/react-youtube-player)
+[![js-canonical-style](https://img.shields.io/badge/code%20style-canonical-blue.svg?style=flat-square)](https://github.com/gajus/canonical)
 
 React component that encapsulates [YouTube IFrame Player API](https://developers.google.com/youtube/iframe_api_reference) and exposes player controls using the component properties.
 
