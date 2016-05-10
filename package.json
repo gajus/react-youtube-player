@@ -51,8 +51,8 @@
   "scripts": {
     "pragmatist": "pragmatist",
     "lint": "pragmatist lint",
-    "test": "testem",
-    "test-ci": "testem ci -l PhantomJS",
+    "watch-test": "testem",
+    "test": "testem ci -l PhantomJS",
     "build": "pragmatist --es5 build",
     "watch-build": "pragmatist --es5 watch-build",
     "preversion": "npm run lint && npm run test && npm run build",

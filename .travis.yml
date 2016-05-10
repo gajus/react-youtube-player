@@ -16,6 +16,6 @@ before_install: # Travis ships with PhantomJS 1, with no Function.prototype.bind
 install:
     - npm install
 script:
-    - npm run test-ci
+    - npm run test
 notifications:
     email: false
