@@ -1,3 +1,5 @@
+/* eslint-disable max-nested-callbacks */
+
 import assert from 'assert';
 import React from 'react';
 import ReactDOM from 'react-dom';
