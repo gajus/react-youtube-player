@@ -1,6 +1,7 @@
 node_modules
 coverage
 dist
+testem/build
 *.log
 .*
 !.gitignore
