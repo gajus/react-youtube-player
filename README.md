@@ -2,7 +2,6 @@
 
 [![Travis build status](http://img.shields.io/travis/gajus/react-youtube-player/master.svg?style=flat-square)](https://travis-ci.org/gajus/react-youtube-player)
 [![NPM version](http://img.shields.io/npm/v/react-youtube-player.svg?style=flat-square)](https://www.npmjs.org/package/react-youtube-player)
-[![Bountysource](https://www.bountysource.com/badge/issue?issue_id=26763180)](https://www.bountysource.com/issues/26763180-write-test-cases-that-cover-the-use-of-the-api?utm_source=26763180&utm_medium=shield&utm_campaign=ISSUE_BADGE)
 
 React component that encapsulates [YouTube IFrame Player API](https://developers.google.com/youtube/iframe_api_reference) and exposes player controls using the component properties.
 
