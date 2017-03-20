@@ -1,0 +1,15 @@
+{
+  "extends": [
+    "canonical",
+    "canonical/flowtype",
+    "canonical/react"
+  ],
+  "root": true,
+  "rules": {
+    "class-methods-use-this": 0,
+    "filenames/match-exported": 0,
+    "flowtype/no-weak-types": 0,
+    "react/no-unused-prop-types": 0,
+    "react/sort-comp": 0
+  }
+}

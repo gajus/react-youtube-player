@@ -1,11 +1,13 @@
-node_modules
 coverage
 dist
-testem/build
+node_modules
 *.log
 .*
+!.babelrc
+!.editorconfig
+!.eslintrc
+!.flowconfig
 !.gitignore
 !.npmignore
-!.babelrc
+!.scripts
 !.travis.yml
-!.storybook

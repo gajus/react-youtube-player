@@ -1,9 +1,10 @@
 import {
-    configure
+  configure
 } from '@kadira/storybook';
 
 const loadStories = () => {
-    require('./../dist/stories/player.js');
+  // eslint-disable-next-line import/no-unassigned-import global-require
+  require('../dist/stories/player');
 };
 
 configure(loadStories, module);
