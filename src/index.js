@@ -164,12 +164,13 @@ class ReactYoutubePlayer extends React.Component {
    */
   // eslint-disable-next-line no-undef
   diffState = (prevProps: $Shape<PropsType>, nextProps: $Shape<PropsType>): void => {
-    if (this.realPlaybackState !== nextProps.playbackState && nextProps.playbackState) {
-      this.setPlaybackState(nextProps.playbackState);
-    }
 
     if (prevProps.videoId !== nextProps.videoId && nextProps.videoId) {
       this.cueVideoId(nextProps.videoId);
+    }
+
+    if (this.realPlaybackState !== nextProps.playbackState && nextProps.playbackState) {
+      this.setPlaybackState(nextProps.playbackState);
     }
   };
 
