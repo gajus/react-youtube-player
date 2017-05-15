@@ -108,6 +108,10 @@ class ReactYoutubePlayer extends React.Component {
     this.diffState({}, this.props);
   }
 
+  componentWillUnmount () {
+    this.player.destroy();
+  }
+
   componentWillReceiveProps (nextProps) {
     this.diffState(this.props, nextProps);
   }
