@@ -1,32 +1,13 @@
 {
-  "name": "react-youtube-player",
-  "description": "React component that encapsulates YouTube IFrame Player API and exposes player controls using the component properties.",
-  "main": "./dist/index.js",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/gajus/react-youtube-player"
-  },
-  "keywords": [
-    "react-component",
-    "react",
-    "youtube",
-    "video",
-    "player"
-  ],
-  "version": "2.0.0",
   "author": {
-    "name": "Gajus Kuizinas",
     "email": "gajus@gajus.com",
+    "name": "Gajus Kuizinas",
     "url": "http://gajus.com"
-  },
-  "license": "BSD-3-Clause",
-  "peerDepdendencies": {
-    "react": "^0.14.0",
-    "react-dom": "^0.14.0"
   },
   "dependencies": {
     "youtube-player": "^5.0.0"
   },
+  "description": "React component that encapsulates YouTube IFrame Player API and exposes player controls using the component properties.",
   "devDependencies": {
     "@kadira/storybook": "^2.35.3",
     "babel-cli": "^6.24.1",
@@ -45,9 +26,29 @@
     "react-addons-test-utils": "^15.5.1",
     "react-dom": "^15.5.4"
   },
+  "keywords": [
+    "react-component",
+    "react",
+    "youtube",
+    "video",
+    "player"
+  ],
+  "license": "BSD-3-Clause",
+  "main": "./dist/index.js",
+  "name": "react-youtube-player",
+  "peerDepdendencies": {
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gajus/react-youtube-player"
+  },
   "scripts": {
-    "lint": "eslint src test",
     "build": "NODE_ENV=production babel ./src --out-dir ./dist --source-maps --copy-files",
-    "demo": "start-storybook -p 9001"
-  }
+    "demo": "start-storybook -p 9001",
+    "lint": "eslint src test",
+    "test": "echo 'Please add tests. :-('"
+  },
+  "version": "2.0.0"
 }
