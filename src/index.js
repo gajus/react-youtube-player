@@ -1,6 +1,8 @@
 // @flow
 
-import React from 'react';
+import React, {
+  PureComponent
+} from 'react';
 import YoutubePlayer from 'youtube-player';
 
 type PlaybackStateNameType = 'playing' | 'paused' | 'unstarted';
@@ -69,7 +71,7 @@ type PropsType = {|
   onPlay: Function
 |};
 
-class ReactYoutubePlayer extends React.Component {
+class ReactYoutubePlayer extends PureComponent {
   props: PropsType;
 
   // eslint-disable-next-line no-useless-constructor
