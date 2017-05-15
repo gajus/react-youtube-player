@@ -5,7 +5,7 @@
     "url": "http://gajus.com"
   },
   "dependencies": {
-    "youtube-player": "^5.0.0"
+    "youtube-player": "^5.1.0"
   },
   "description": "React component that encapsulates YouTube IFrame Player API and exposes player controls using the component properties.",
   "devDependencies": {
@@ -20,7 +20,7 @@
     "babel-preset-stage-0": "^6.24.1",
     "chai": "^3.5.0",
     "eslint": "^3.19.0",
-    "eslint-config-canonical": "^8.2.0",
+    "eslint-config-canonical": "^8.2.1",
     "jsdom": "^10.1.0",
     "react": "^15.5.4",
     "react-addons-test-utils": "^15.5.1",

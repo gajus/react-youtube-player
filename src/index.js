@@ -1,7 +1,9 @@
+// @flow
+
 import React from 'react';
 import YoutubePlayer from 'youtube-player';
 
-type PlaybackStateName = 'playing' | 'paused' | 'unstarted';
+type PlaybackStateNameType = 'playing' | 'paused' | 'unstarted';
 
 type ConfigurationType = {|
   +autoplay: 0 | 1,
@@ -162,9 +164,7 @@ class ReactYoutubePlayer extends React.Component {
    * when the current "state" property is "play" and the last known player state is "pause",
    * then setPlaybackState method will be called.
    */
-  // eslint-disable-next-line no-undef
   diffState = (prevProps: $Shape<PropsType>, nextProps: $Shape<PropsType>): void => {
-
     if (prevProps.videoId !== nextProps.videoId && nextProps.videoId) {
       this.cueVideoId(nextProps.videoId);
     }
@@ -174,7 +174,7 @@ class ReactYoutubePlayer extends React.Component {
     }
   };
 
-  setPlaybackState = (stateName: PlaybackStateName): void => {
+  setPlaybackState = (stateName: PlaybackStateNameType): void => {
     if (stateName === 'playing') {
       this.player.playVideo();
     } else if (stateName === 'paused') {
