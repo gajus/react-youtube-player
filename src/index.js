@@ -68,7 +68,9 @@ type PropsType = {|
   // https://developers.google.com/youtube/iframe_api_reference#onError
   onError: Function,
   onPause: Function,
-  onPlay: Function
+  onPlay: Function,
+  onCued: Function,
+  onUnstarted: Function
 |};
 
 class ReactYoutubePlayer extends PureComponent {
@@ -91,10 +93,12 @@ class ReactYoutubePlayer extends PureComponent {
   static defaultProps = {
     configuration: {},
     onBuffer: () => {},
+    onCued: () => {},
     onEnd: () => {},
     onError: () => {},
     onPause: () => {},
     onPlay: () => {},
+    onUnstarted: () => {},
     playbackState: 'unstarted'
   };
 
@@ -154,6 +158,10 @@ class ReactYoutubePlayer extends PureComponent {
         this.props.onPause(event);
       } else if (realPlaybackState === 'buffering') {
         this.props.onBuffer(event);
+      } else if (realPlaybackState === 'cued') {
+        this.props.onCued(event);
+      } else if (realPlaybackState === 'unstarted') {
+        this.props.onUnstarted(event);
       }
     });
 
